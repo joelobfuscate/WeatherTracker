@@ -8,7 +8,7 @@ import time
 # Get temperature
 while True:
 
-	f=urllib2.urlopen('http://api.wunderground.com/api/01afa3ace37e6ce4/conditions/q/CA/Mountain_View.json')
+	f=urllib2.urlopen('http://api.wunderground.com/api/e260c734250b742d/conditions/q/CA/Mountain_View.json')
 	json_string = f.read()
 	parsed_json = json.loads(json_string)
 	location = 'Mountain View'
