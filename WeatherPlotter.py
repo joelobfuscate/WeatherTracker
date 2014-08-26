@@ -24,7 +24,7 @@ while True:
 	#         print 'Time: {},\tTemp: {}'.format(row[0],row[1])
 	
 	ax.clear()
-	ax.plot(data[:,0],data[:,1],'o-')
+	ax.plot(data[:,0],data[:,1],'o-',data[:,0],data[:,2],'o-')
 	
 	plt.pause(180)
 	# plt.show()
