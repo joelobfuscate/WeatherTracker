@@ -28,14 +28,16 @@ try:
 	access_token = data
 # Get access token from Dropbox
 except:
-	sess = dbox.session.DropboxSession(app_key,app_secret,access_type)
-	request_token = sess.obtain_request_token()
-	url = sess.build_authorize_url(request_token)
-	webbrowser.get('/usr/bin/chromium %s').open(url,new=1)
 	need_creds = True
 	while need_creds:
 		try:
-			access_token = sess.obtain_access_token(request_token)
+			fakesession = dict()
+			flow=dbox.client.DropboxOAuth2Flow(app_key,app_secret,redirect_uri='http://localhost:8080/',session=fakesession,csrf_token_session_key='dropbox-auth-csrf-token')
+			url=flow.start()
+			webbrowser.get('/usr/bin/chromium %s').open(url,new=1)
+			code=raw_input('Enter code: ').strip()
+			access_token,user_id=flow.finish(code)
+			print 'access_token is {}'.format(access_token)
 			need_creds=False
 		except dbox.rest.ErrorResponse:
 			time.sleep(1)
@@ -47,6 +49,10 @@ print 'linked account: {}'.format(client.account_info())
 fig = plt.figure()
 ax = fig.add_subplot(1,1,1)
 sec_per_day = 60.*60.*24.
+
+# def upload_to_dropbox(client,filename):
+#         f=open(filename,'rb')
+#         response=client.put_file(
 
 while True:
 	try:
@@ -69,6 +75,7 @@ while True:
 
 		f = open('out.png','rb')
 		response = client.put_file('/out.png',f,overwrite=True)
+		f.close()
 		print 'uploaded: {}'.format(response)
 		
 		plt.pause(180)

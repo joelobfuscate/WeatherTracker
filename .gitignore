@@ -3,3 +3,4 @@ test.db
 *~
 out.png
 ds18b20
+*.pyc
