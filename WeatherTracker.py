@@ -31,7 +31,7 @@ while True:
 		conn = sqlite3.connect('test.db')
 		c=conn.cursor()
 		try:
-			c.execute('CREATE TABLE Temp(time REAL,temp_f_WeatherChannel REAL,temp_f_Sensor)')
+			c.execute('CREATE TABLE Temp(time REAL,temp_f_WeatherChannel REAL,temp_f_Sensor REAL)')
 		except:
 			pass
 		data=(time.time(),temp_f_WeatherChannel,temp_f_Sensor)
