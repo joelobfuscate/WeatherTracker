@@ -9,6 +9,7 @@ import matplotlib as mpl
 import numpy as np
 import dropbox as dbox
 import webbrowser
+import time
 
 # SQL Database
 dbname = 'test.db'
@@ -30,12 +31,16 @@ except:
 	sess = dbox.session.DropboxSession(app_key,app_secret,access_type)
 	request_token = sess.obtain_request_token()
 	url = sess.build_authorize_url(request_token)
-	webbrowser.
+	webbrowser.get('/usr/bin/chromium %s').open(url,new=1)
+	need_creds = True
+	while need_creds:
+		try:
+			access_token = sess.obtain_access_token(request_token)
+			need_creds=False
+		except dbox.rest.ErrorResponse:
+			time.sleep(1)
 
-code = raw_input('Enter auth code here: ').strip()
-access_token, user_id = flow.finish(code)
-print access_token
-print user_id
+# access_token, user_id = flow.finish(code)
 client = dbox.client.DropboxClient(access_token)
 print 'linked account: {}'.format(client.account_info())
 

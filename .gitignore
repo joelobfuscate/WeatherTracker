@@ -1,3 +1,5 @@
 test.db
 *.swp
 *~
+out.png
+ds18b20

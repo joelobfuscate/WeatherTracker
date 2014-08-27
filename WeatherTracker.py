@@ -41,5 +41,7 @@ while True:
 		conn.close()
 
 		time.sleep(180)
+	except KeyboardInterrupt:
+		raise
 	except:
 		pass
